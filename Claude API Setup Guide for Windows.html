@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude API Setup Guide for Windows | Daily Data Nudge</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .step {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .step h3 {
+            color: #333;
+            margin-bottom: 10px;
+            margin-top: 5px;
+        }
+
+        .step p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            overflow-x: auto;
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #764ba2;
+        }
+
+        .copy-btn.copied {
+            background: #4caf50;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        .info {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        .video-note {
+            background: #f3e5f5;
+            border-left: 4px solid #764ba2;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 10px 0;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .checklist li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+
+        .timestamp {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #f8f9fa;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .highlight {
+            background: #fff9c4;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Claude API Setup Guide</h1>
+            <p>Complete Windows Setup with Subscription & API Key Configuration</p>
+            <p class="timestamp">Perfect for Data Engineers • 5 Minutes Total</p>
+        </div>
+
+        <div class="content">
+            <!-- SECTION 1: SUBSCRIPTION -->
+            <div class="section">
+                <h2>Step 1: Create Anthropic Account & Subscription</h2>
+
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Go to console.anthropic.com</h3>
+                    <p>Open your browser and navigate to <span class="highlight">console.anthropic.com</span></p>
+                    <p>If you don't have an account, click <strong>"Sign Up"</strong> and follow these prompts:</p>
+                    <ul class="checklist">
+                        <li>Enter your email address</li>
+                        <li>Create a strong password</li>
+                        <li>Verify your email</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Set Up Billing (Pay-As-You-Go)</h3>
+                    <p>After signup, go to <strong>Billing → Plans</strong> in the console.</p>
+                    <p>Choose the <strong>Pay-As-You-Go</strong> plan (free tier is limited; production needs pay-as-you-go).</p>
+                    
+                    <div class="info">
+                        <strong>💡 Note:</strong> You get $5 in free credits for the first 3 months. Use them first before your card is charged.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Add a Payment Method</h3>
+                    <p>Go to <strong>Billing → Payment Methods</strong>.</p>
+                    <p>Click <strong>"Add Payment Method"</strong> and enter your credit/debit card details.</p>
+                    
+                    <div class="warning">
+                        <strong>⚠️ Important:</strong> Your card won't be charged immediately. Only after free credits are used.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Set Budget Alert (Optional but Recommended)</h3>
+                    <p>In <strong>Billing → Usage Limits</strong>, set a monthly spending limit to avoid surprise charges.</p>
+                    <p><strong>Recommended:</strong> Start with $10/month for experimentation.</p>
+                </div>
+
+                <div class="video-note">
+                    📹 <strong>Video Tip:</strong> This section is where you show your screen navigating the Anthropic console. Record at 1080p, slow down your clicks so viewers can follow. Pause at the API key reveal moment.
+                </div>
+            </div>
+
+            <!-- SECTION 2: API KEY -->
+            <div class="section">
+                <h2>Step 2: Generate Your API Key</h2>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h3>Create API Key</h3>
+                    <p>In the Anthropic console, go to <strong>API Keys</strong> in the left sidebar.</p>
+                    <p>Click <strong>"Create Key"</strong>.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <h3>Name Your Key (Optional)</h3>
+                    <p>Give it a descriptive name like <span class="highlight">claude-windows-dev</span> or <span class="highlight">daily-data-nudge</span>.</p>
+                    <p>This helps if you manage multiple keys later.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">7</div>
+                    <h3>Copy the Key Immediately</h3>
+                    <p>A long string starting with <span class="highlight">sk-ant-</span> appears on your screen.</p>
+                    <p><strong>COPY IT NOW.</strong> You will never see it again once you close this page.</p>
+                    
+                    <div class="code-block">
+sk-ant-v0-abc123xyz... (your actual key will be much longer)
+                    </div>
+
+                    <div class="warning">
+                        <strong>🔒 CRITICAL:</strong> This key is like your password. Never share it, never commit it to GitHub, never post it in code reviews.
+                    </div>
+                </div>
+
+                <div class="success">
+                    <strong>✓ Done with Anthropic Console</strong><br>
+                    You now have a valid, funded API key. Next: Windows setup.
+                </div>
+            </div>
+
+            <!-- SECTION 3: WINDOWS SETUP -->
+            <div class="section">
+                <h2>Step 3: Windows Terminal & Python Setup</h2>
+
+                <div class="step">
+                    <div class="step-number">8</div>
+                    <h3>Check Python Installation</h3>
+                    <p>Open <strong>PowerShell</strong> (search "PowerShell" in Windows Start menu).</p>
+                    <p>Type this command and press Enter:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre>py --version</pre>
+                    </div>
+
+                    <p><strong>Expected output:</strong> <span class="highlight">Python 3.10.x</span> or higher (e.g., 3.11, 3.12)</p>
+                    
+                    <div class="info">
+                        <strong>💡 If not installed:</strong> Go to <strong>python.org</strong>, download Python 3.11+, and during installation, <strong>TICK the box "Add python.exe to PATH"</strong>. Then restart PowerShell.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">9</div>
+                    <h3>Create Project Folder</h3>
+                    <p>In PowerShell, run:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre>mkdir claude-api-project
+cd claude-api-project</pre>
+                    </div>
+
+                    <p>You're now inside your project folder.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">10</div>
+                    <h3>Create Virtual Environment</h3>
+                    <p>A virtual environment keeps your project's packages isolated from your system Python.</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre>py -m venv .venv</pre>
+                    </div>
+
+                    <p><strong>Wait 30 seconds</strong> for it to complete. You'll see a new folder <span class="highlight">.venv</span> appear.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">11</div>
+                    <h3>Activate Virtual Environment</h3>
+                    <p>Run:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre>.venv\Scripts\Activate.ps1</pre>
+                    </div>
+
+                    <p><strong>Look at your prompt:</strong> It should now start with <span class="highlight">(.venv)</span></p>
+                    <p>Example: <span class="highlight">(.venv) PS C:\Users\YourName\claude-api-project></span></p>
+
+                    <div class="warning">
+                        <strong>⚠️ PowerShell Security:</strong> If you get an error about "scripts are disabled", run this once:
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</pre>
+                        </div>
+                        Then try activating again.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">12</div>
+                    <h3>Install Required Packages</h3>
+                    <p>Still in PowerShell (with <span class="highlight">(.venv)</span> active), run:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre>pip install anthropic python-dotenv</pre>
+                    </div>
+
+                    <p>This installs two packages:</p>
+                    <table>
+                        <tr>
+                            <th>Package</th>
+                            <th>Purpose</th>
+                        </tr>
+                        <tr>
+                            <td><strong>anthropic</strong></td>
+                            <td>Official SDK to call Claude API</td>
+                        </tr>
+                        <tr>
+                            <td><strong>python-dotenv</strong></td>
+                            <td>Reads your .env file (keeps API key safe)</td>
+                        </tr>
+                    </table>
+
+                    <p><strong>Wait for completion.</strong> You'll see: <span class="highlight">Successfully installed...</span></p>
+                </div>
+            </div>
+
+            <!-- SECTION 4: STORE API KEY -->
+            <div class="section">
+                <h2>Step 4: Store Your API Key Safely</h2>
+
+                <div class="step">
+                    <div class="step-number">13</div>
+                    <h3>Create .env File</h3>
+                    <p>In PowerShell, run:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre>notepad .env</pre>
+                    </div>
+
+                    <p>Notepad will open. Paste this (replace with your actual key):</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre>ANTHROPIC_API_KEY=sk-ant-v0-your-actual-key-here</pre>
+                    </div>
+
+                    <div class="warning">
+                        <strong>⚠️ IMPORTANT:</strong>
+                        <ul class="checklist">
+                            <li>NO QUOTES around the key</li>
+                            <li>NO SPACES before or after</li>
+                            <li>Just: <span class="highlight">ANTHROPIC_API_KEY=sk-ant-...</span></li>
+                        </ul>
+                    </div>
+
+                    <p>Save the file: <strong>Ctrl+S</strong>, then close Notepad.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">14</div>
+                    <h3>Create .gitignore File</h3>
+                    <p>This prevents your .env file from being uploaded to GitHub by accident.</p>
+                    <p>In PowerShell, run:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre>notepad .gitignore</pre>
+                    </div>
+
+                    <p>Paste:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre>.env
+.venv/
+__pycache__/
+*.pyc</pre>
+                    </div>
+
+                    <p>Save and close.</p>
+
+                    <div class="success">
+                        <strong>✓ Your API key is now safe.</strong><br>
+                        It's in a .env file on your computer, never in your code, never shared.
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 5: FIRST TEST -->
+            <div class="section">
+                <h2>Step 5: Test with Your First Request</h2>
+
+                <div class="step">
+                    <div class="step-number">15</div>
+                    <h3>Open VS Code</h3>
+                    <p>In PowerShell (still in your <span class="highlight">claude-api-project</span> folder), run:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre>code .</pre>
+                    </div>
+
+                    <p>VS Code will open with your project folder.</p>
+
+                    <div class="info">
+                        <strong>💡 Don't have VS Code?</strong> Download it free from code.visualstudio.com. Then install the <strong>Python</strong> extension from Microsoft.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">16</div>
+                    <h3>Create main.py</h3>
+                    <p>In VS Code, right-click the Explorer panel and select <strong>"New File"</strong>. Name it <span class="highlight">main.py</span>.</p>
+                    <p>Paste this code:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre>import os
+from anthropic import Anthropic
+from dotenv import load_dotenv
+
+# Load API key from .env file
+load_dotenv()
+api_key = os.getenv("ANTHROPIC_API_KEY")
+
+# Fail fast if key is missing
+if not api_key:
+    raise RuntimeError("ANTHROPIC_API_KEY not found in .env file")
+
+# Create Claude client
+client = Anthropic(api_key=api_key)
+
+# Send one message to Claude
+response = client.messages.create(
+    model="claude-3-5-sonnet-20241022",
+    max_tokens=200,
+    messages=[{
+        "role": "user",
+        "content": "Say hello to Daily Data Nudge viewers in one sentence."
+    }]
+)
+
+# Print Claude's response
+print(response.content[0].text)</pre>
+                    </div>
+
+                    <p>Save the file: <strong>Ctrl+S</strong></p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">17</div>
+                    <h3>Run Your First Request</h3>
+                    <p>In VS Code, open the Terminal: <strong>Ctrl+`</strong> (backtick)</p>
+                    <p>Make sure <span class="highlight">(.venv)</span> appears in the prompt. If not, run:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre>.venv\Scripts\Activate.ps1</pre>
+                    </div>
+
+                    <p>Then run:</p>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre>python main.py</pre>
+                    </div>
+
+                    <p><strong>Expected output:</strong> A friendly greeting from Claude.</p>
+
+                    <div class="success">
+                        <strong>🎉 DONE!</strong><br>
+                        Your API key works. You can now call Claude from Python.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3>Troubleshooting</h3>
+                    <p>If something goes wrong, check this:</p>
+                    <table>
+                        <tr>
+                            <th>Error</th>
+                            <th>Solution</th>
+                        </tr>
+                        <tr>
+                            <td><strong>AuthenticationError: 401</strong></td>
+                            <td>Your API key is wrong or has spaces. Re-check .env file.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ModuleNotFoundError: anthropic</strong></td>
+                            <td>Virtual environment not active. Look for <span class="highlight">(.venv)</span> in prompt.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FileNotFoundError: .env</strong></td>
+                            <td>.env file is in wrong folder. Use <span class="highlight">dir</span> to check.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>scripts are disabled</strong></td>
+                            <td>Run: <span class="highlight">Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SECTION 6: FOLDER STRUCTURE -->
+            <div class="section">
+                <h2>Your Final Project Structure</h2>
+
+                <div class="step">
+                    <p>After all steps, your folder should look like this:</p>
+                    
+                    <div class="code-block">
+                        <pre>claude-api-project/
+├── .venv/                  ← Virtual environment (auto-created)
+├── .env                    ← Your API key (SECRET - never share!)
+├── .gitignore              ← Prevents .env from going to GitHub
+├── main.py                 ← Your first Python script
+└── (any other .py files)   ← Future code goes here</pre>
+                    </div>
+
+                    <div class="info">
+                        <strong>Remember:</strong>
+                        <ul class="checklist">
+                            <li>.venv = auto-created, never touch it</li>
+                            <li>.env = keep secret, add to .gitignore</li>
+                            <li>main.py = your code</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 7: NEXT STEPS -->
+            <div class="section">
+                <h2>What's Next?</h2>
+
+                <div class="step">
+                    <p>Now that you have Claude running:</p>
+                    
+                    <ul class="checklist">
+                        <li>Learn function calling (make Claude trigger your Python code)</li>
+                        <li>Build data pipelines (CSV → Claude → cleaned data)</li>
+                        <li>Generate SQL & PySpark code from your data</li>
+                        <li>Automate data validation and cleaning</li>
+                        <li>Build AI-powered dashboards with Power BI</li>
+                    </ul>
+
+                    <div class="video-note">
+                        📹 <strong>Video Transition Tip:</strong> End this video here. Next video: "Function Calling Explained" - where you actually use Claude to do something useful.
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESOURCES -->
+            <div class="section">
+                <h2>Resources & Links</h2>
+
+                <table>
+                    <tr>
+                        <th>Resource</th>
+                        <th>Link</th>
+                    </tr>
+                    <tr>
+                        <td>Anthropic Console</td>
+                        <td>console.anthropic.com</td>
+                    </tr>
+                    <tr>
+                        <td>Claude API Documentation</td>
+                        <td>docs.anthropic.com</td>
+                    </tr>
+                    <tr>
+                        <td>VS Code Download</td>
+                        <td>code.visualstudio.com</td>
+                    </tr>
+                    <tr>
+                        <td>Python Download</td>
+                        <td>python.org (use 3.11 or 3.12)</td>
+                    </tr>
+                    <tr>
+                        <td>Daily Data Nudge Channel</td>
+                        <td>@DailyDataNudge on YouTube</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Daily Data Nudge</strong> | Claude API Setup Guide</p>
+            <p>Questions? Leave a comment below the video!</p>
+            <p style="margin-top: 10px; color: #999;">Last Updated: October 2026 | Claude 3.5 Sonnet</p>
+        </div>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const text = codeBlock.textContent.trim();
+            
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = '✓ Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
